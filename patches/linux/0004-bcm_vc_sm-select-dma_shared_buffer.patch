@@ -1,0 +1,28 @@
+From 90d58142df6e71192cf16a9a57e376d38b685bb4 Mon Sep 17 00:00:00 2001
+From: Alistair Buxton <a.j.buxton@gmail.com>
+Date: Sat, 28 Oct 2017 04:58:26 +0100
+Subject: [PATCH] BCM_VC_SM: select DMA_SHARED_BUFFER
+
+This driver was refactored to use the kernel DMA buffer sharing api
+in commit a97390852b14e8f06cf579adaaf8b664184e92d2.
+
+Per Documentation/dma-buf-sharing.txt, it must select DMA_SHARED_BUFFER
+in its Kconfig.
+
+Signed-off-by: Alistair Buxton <a.j.buxton@gmail.com>
+---
+ drivers/char/broadcom/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/char/broadcom/Kconfig b/drivers/char/broadcom/Kconfig
+index 77bf68a88e685..87593023b65bb 100644
+--- a/drivers/char/broadcom/Kconfig
++++ b/drivers/char/broadcom/Kconfig
+@@ -27,6 +27,7 @@ config BCM_VC_SM
+ 	bool "VMCS Shared Memory"
+ 	depends on BCM2708_VCHIQ
+ 	select BCM2708_VCMEM
++	select DMA_SHARED_BUFFER
+ 	default n
+ 	help
+ 	Support for the VC shared memory on the Broadcom reference

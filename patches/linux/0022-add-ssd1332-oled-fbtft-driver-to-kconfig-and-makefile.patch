@@ -1,0 +1,41 @@
+From 49eca6942e1844994a6b4dd87c9911e26611ba98 Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Fri, 9 Feb 2018 17:04:23 +0100
+Subject: [PATCH 1/2] Add SSD1332 OLED fbtft driver to Kconfig and Makefile
+
+---
+ drivers/staging/fbtft/Kconfig  | 6 ++++++
+ drivers/staging/fbtft/Makefile | 1 +
+ 2 files changed, 7 insertions(+)
+
+diff --git a/drivers/staging/fbtft/Kconfig b/drivers/staging/fbtft/Kconfig
+index 6f5e8246..9cea972c 100644
+--- a/drivers/staging/fbtft/Kconfig
++++ b/drivers/staging/fbtft/Kconfig
+@@ -141,6 +141,12 @@ config FB_TFT_SSD1331
+ 	help
+ 	  Framebuffer support for SSD1331
+
++config FB_TFT_SSD1322
++	tristate "FB driver for the SSD1322 OLED Controller"
++	depends on FB_TFT
++	help
++	  Framebuffer support for SSD1322
++
+ config FB_TFT_SSD1351
+ 	tristate "FB driver for the SSD1351 LCD Controller"
+ 	depends on FB_TFT
+diff --git a/drivers/staging/fbtft/Makefile b/drivers/staging/fbtft/Makefile
+index 2725ea9a..9784b2bb 100644
+--- a/drivers/staging/fbtft/Makefile
++++ b/drivers/staging/fbtft/Makefile
+@@ -25,6 +25,7 @@ obj-$(CONFIG_FB_TFT_SSD1305)     += fb_ssd1305.o
+ obj-$(CONFIG_FB_TFT_SSD1306)     += fb_ssd1306.o
+ obj-$(CONFIG_FB_TFT_SSD1305)     += fb_ssd1325.o
+ obj-$(CONFIG_FB_TFT_SSD1331)     += fb_ssd1331.o
++obj-$(CONFIG_FB_TFT_SSD1322)     += fb_ssd1322.o
+ obj-$(CONFIG_FB_TFT_SSD1351)     += fb_ssd1351.o
+ obj-$(CONFIG_FB_TFT_ST7735R)     += fb_st7735r.o
+ obj-$(CONFIG_FB_TFT_ST7789V)     += fb_st7789v.o
+--
+2.13.6

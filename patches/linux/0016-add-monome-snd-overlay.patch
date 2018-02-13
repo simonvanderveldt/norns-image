@@ -1,0 +1,66 @@
+From 098650fe7af2004f9487f95fece8b10d66bb20e8 Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Wed, 7 Feb 2018 20:50:07 +0100
+Subject: [PATCH] Add monome-snd overlay
+
+---
+ arch/arm/boot/dts/overlays/monome-snd-overlay.dts | 47 +++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+ create mode 100644 arch/arm/boot/dts/overlays/monome-snd-overlay.dts
+
+diff --git a/arch/arm/boot/dts/overlays/monome-snd-overlay.dts b/arch/arm/boot/dts/overlays/monome-snd-overlay.dts
+new file mode 100644
+index 00000000..22119cbe
+--- /dev/null
++++ b/arch/arm/boot/dts/overlays/monome-snd-overlay.dts
+@@ -0,0 +1,47 @@
++// Definitions for monome
++/dts-v1/;
++/plugin/;
++
++/ {
++	compatible = "brcm,bcm2708";
++
++	fragment@0 {
++		target = <&sound>;
++		__overlay__ {
++			compatible = "monome";
++			i2s-controller = <&i2s>;
++			status = "okay";
++		};
++	};
++
++	fragment@1 {
++		target = <&i2s>;
++		__overlay__ {
++			status = "okay";
++		};
++	};
++
++	fragment@2 {
++		target = <&i2c1>;
++		__overlay__ {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "okay";
++
++			cs4270: cs4270@48 {
++				#sound-dai-cells = <0>;
++				compatible = "cirrus,cs4270";
++				reg = <0x48>;
++				reset-gpio = <&gpio 17 2>;
++				status="okay";
++
++				reset_pin {
++				  gpio-hog;
++				  gpios = <17>;
++				  output-high;
++				  line-name = "reset-gpio";
++			       };
++                        };
++		};
++	};	   
++};
+-- 
+2.13.6
+

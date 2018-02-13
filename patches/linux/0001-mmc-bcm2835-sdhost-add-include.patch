@@ -1,0 +1,31 @@
+From 417d8e6b06a612ff5665bf32d44e38a3f638d6cf Mon Sep 17 00:00:00 2001
+From: Phil Elwell <phil@raspberrypi.org>
+Date: Mon, 5 Feb 2018 09:35:01 +0000
+Subject: [PATCH] mmc: bcm2835-sdhost: Add include
+
+highmem.h (needed for kmap_atomic) is pulled in by one of the other
+include files, but only with some CONFIG settings. Make the inclusion
+explicit to cater for cases where the CONFIG setting is absent.
+
+See: https://github.com/raspberrypi/linux/issues/2366
+
+Signed-off-by: Phil Elwell <phil@raspberrypi.org>
+---
+ drivers/mmc/host/bcm2835-sdhost.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/mmc/host/bcm2835-sdhost.c b/drivers/mmc/host/bcm2835-sdhost.c
+index 5b1aa59b..a408459d 100644
+--- a/drivers/mmc/host/bcm2835-sdhost.c
++++ b/drivers/mmc/host/bcm2835-sdhost.c
+@@ -51,6 +51,7 @@
+ #include <linux/of_dma.h>
+ #include <linux/time.h>
+ #include <linux/workqueue.h>
++#include <linux/highmem.h>
+ #include <soc/bcm2835/raspberrypi-firmware.h>
+ 
+ #define DRIVER_NAME "sdhost-bcm2835"
+-- 
+2.13.6
+
