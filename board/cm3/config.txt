@@ -1,0 +1,36 @@
+# Please note that this is only a sample, we recommend you to change it to fit
+# your needs.
+# You should override this file using a post-build script.
+# See http://buildroot.org/manual.html#rootfs-custom
+# and http://elinux.org/RPiconfig for a description of config.txt syntax
+
+kernel=zImage
+
+# To use an external initramfs file
+#initramfs rootfs.cpio.gz
+
+# Disable overscan assuming the display supports displaying the full resolution
+# If the text shown on the screen disappears off the edge, comment this out
+disable_overscan=1
+
+# How much memory in MB to assign to the GPU on Pi models having
+# 256, 512 or 1024 MB total memory
+gpu_mem_256=100
+gpu_mem_512=100
+gpu_mem_1024=100
+
+# fixes rpi3 ttyAMA0 serial console
+# dtoverlay=pi3-miniuart-bt
+
+# Display communicates over SPI
+dtparam=spi=on
+dtoverlay=ssd1322-spi
+
+# Soundcard communicates over i2s
+# CS4270 codec used by soundcard communicates over i2c
+dtparam=i2c=on
+dtparam=i2s=on
+dtoverlay=monome-snd
+
+# No longer need i2s-mmap, see https://github.com/raspberrypi/linux/issues/1004#issuecomment-297010950
+# dtoverlay=i2s-mmap

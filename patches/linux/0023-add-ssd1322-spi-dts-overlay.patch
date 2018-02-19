@@ -1,0 +1,129 @@
+From 14e7e1b4ccfdad4bf2a2988b27c6af78a6ca03c7 Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Sat, 17 Feb 2018 22:03:42 +0100
+Subject: [PATCH] Add ssd1322-spi dts overlay
+
+---
+ arch/arm/boot/dts/overlays/Makefile                |  1 +
+ arch/arm/boot/dts/overlays/README                  |  6 ++
+ arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts | 79 ++++++++++++++++++++++
+ 3 files changed, 86 insertions(+)
+ create mode 100644 arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts
+
+diff --git a/arch/arm/boot/dts/overlays/Makefile b/arch/arm/boot/dts/overlays/Makefile
+index 758fc6e2c..830cb85fe 100644
+--- a/arch/arm/boot/dts/overlays/Makefile
++++ b/arch/arm/boot/dts/overlays/Makefile
+@@ -110,6 +110,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
+ 	spi2-1cs.dtbo \
+ 	spi2-2cs.dtbo \
+ 	spi2-3cs.dtbo \
++	ssd1322-spi.dtbo \
+ 	tinylcd35.dtbo \
+ 	uart1.dtbo \
+ 	vc4-fkms-v3d.dtbo \
+diff --git a/arch/arm/boot/dts/overlays/README b/arch/arm/boot/dts/overlays/README
+index 3f5924f53..e424e7f45 100644
+--- a/arch/arm/boot/dts/overlays/README
++++ b/arch/arm/boot/dts/overlays/README
+@@ -1514,6 +1514,12 @@ Params: cs0_pin                 GPIO pin for CS0 (default 43 - BCM SPI2_CE0).
+                                 is 'okay' or enabled).
+ 
+ 
++Name:   ssd1322-spi
++Info:   Enable ssd1322 OLED display
++Load:   dtoverlay=ssd1322-spi
++Params: <None>
++
++
+ Name:   tinylcd35
+ Info:   3.5" Color TFT Display by www.tinylcd.com
+         Options: Touch, RTC, keypad
+diff --git a/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts b/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts
+new file mode 100644
+index 000000000..089a7070f
+--- /dev/null
++++ b/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts
+@@ -0,0 +1,79 @@
++/*
++Device Tree overlay for SSD1322 SPI controller.
++
++Default pins:
++DC#		 = GPIO5
++RESET# = GPIO6
++
++*/
++
++/dts-v1/;
++/plugin/;
++
++/ {
++  compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
++
++  fragment@0 {
++    target = <&spi0>;
++    __overlay__ {
++      status = "okay";
++    };
++  };
++
++  fragment@1 {
++    target = <&spidev0>;
++    __overlay__ {
++      status = "disabled";
++    };
++  };
++
++  fragment@2 {
++    target = <&spidev1>;
++    __overlay__ {
++      status = "disabled";
++    };
++  };
++
++  fragment@3 {
++    target = <&gpio>;
++    __overlay__ {
++      ssd1322_pins: ssd1322_pins {
++        brcm,pins = <6 5>;
++        brcm,function = <1 1>;
++      };
++    };
++  };
++
++  fragment@4 {
++    target = <&spi0>;
++    __overlay__ {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      ssd1322: ssd1322@0 {
++        compatible = "solomon,ssd1322";
++        reg = <0>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&ssd1322_pins>;
++
++        spi-max-frequency = <16000000>;
++        buswidth = <8>;
++        rotate = <0>;
++        bgr = <0>;
++        fps = <20>;
++
++        reset-gpios = <&gpio 6 0>;
++        dc-gpios = <&gpio 5 1>;
++        debug = <3>;
++      };
++    };
++  };
++
++  __overrides__ {
++    speed			= <&ssd1322>,"spi-max-frequency:0";
++    rotate		= <&ssd1322>,"rotate:0";
++    bgr				= <&ssd1322>,"bgr:0";
++    fps				= <&ssd1322>,"fps:0";
++    debug			= <&ssd1322>,"debug:0";
++  };
++};
+-- 
+2.16.1
+
