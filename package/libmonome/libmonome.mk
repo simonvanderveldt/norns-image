@@ -12,6 +12,7 @@ LIBMONOME_INSTALL_TARGET = YES
 LIBMONOME_INSTALL_IMAGES = YES
 LIBMONOME_LICENSE = ISC
 LIBMONOME_CONF_OPTS = \
-	--libdir=/usr/local/lib ;
+	--disable-osc ;
+
 
 $(eval $(waf-package))
