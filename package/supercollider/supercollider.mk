@@ -26,7 +26,9 @@ SUPERCOLLIDER_CONF_OPTS = \
   -DENABLE_TESTSUITE=no \
   -DNATIVE=no \
   -DSC_HIDAPI=no \
-  -DSC_WII=off
+  -DSC_WII=no \
+  -DBUILD_TESTING=no \
+  -DNOVA_SIMD=yes
 SUPERCOLLIDER_DEPENDENCIES = jack2 fftw libsndfile xlib_libX11 xlib_libXt
 
 $(eval $(cmake-package))
