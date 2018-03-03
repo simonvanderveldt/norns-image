@@ -54,6 +54,9 @@ if [ -f ${BINARIES_DIR}/dt-blob.dtb ]; then
   mv "${BINARIES_DIR}/dt-blob.dtb" "${BINARIES_DIR}/dt-blob.bin"
 fi
 
+# Replace the default rpi cmdline.txt
+cp -f ${BOARD_DIR}/cmdline.txt $BINARIES_DIR/rpi-firmware/
+
 rm -rf "${GENIMAGE_TMP}"
 
 genimage                           \
