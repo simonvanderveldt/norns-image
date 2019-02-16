@@ -5,7 +5,7 @@ Currently needs this buildroot fork/branch to work https://github.com/simonvande
 
 ```
 export BR2_EXTERNAL=<path-to-this-repo>
-make cm3_defconfig
+make norns_defconfig
 make
 dd if=output/images/sdcard.img of=/dev/<rpi3 drive> bs=4MiB
 ```
