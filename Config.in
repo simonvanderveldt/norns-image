@@ -1,2 +1,2 @@
-source "$BR2_EXTERNAL_SIMONTEST_PATH/package/supercollider/Config.in"
-source "$BR2_EXTERNAL_SIMONTEST_PATH/package/libmonome/Config.in"
+source "$BR2_EXTERNAL_NORNS_PATH/package/supercollider/Config.in"
+source "$BR2_EXTERNAL_NORNS_PATH/package/libmonome/Config.in"

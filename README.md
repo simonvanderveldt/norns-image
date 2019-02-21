@@ -11,7 +11,7 @@ Currently needs this patched buildroot fork/branch to work https://github.com/si
 export BR2_EXTERNAL=<path-to-this-repo>
 make norns_defconfig
 make
-dd if=output/images/sdcard.img of=/dev/<rpi3 drive> bs=4MiB
+dd if=output/images/norns.img of=/dev/<rpi3 drive> bs=4MiB
 ```
 
 Alternatively use the [`simonvanderveldt/buildroot:2018.11.2`](https://cloud.docker.com/repository/docker/simonvanderveldt/buildroot) docker image which has the same patches applied:
