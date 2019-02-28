@@ -1,0 +1,26 @@
+From 7b8fe96428a1612a41147a52966c97dab688c9ab Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Thu, 28 Feb 2019 19:09:25 +0100
+Subject: [PATCH] matron: remove unsupported -l argument from df invocation
+
+-l is not supported by busybox's version of df
+---
+ matron/src/hardware/stat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/matron/src/hardware/stat.c b/matron/src/hardware/stat.c
+index 6ff14bc..d9f82af 100644
+--- a/matron/src/hardware/stat.c
++++ b/matron/src/hardware/stat.c
+@@ -60,7 +60,7 @@ void *stat_check(void *x) {
+ 
+     // check disk ever 5 sleeps
+     if(number==0) {
+-      if ((fd = popen("df -l | grep '/dev/root' | awk '{print $4}'", "r")) == NULL) {
++      if ((fd = popen("df | grep '/dev/root' | awk '{print $4}'", "r")) == NULL) {
+         fprintf(stderr,"Error opening pipe: disk free read\n");
+       }
+       else {
+-- 
+2.19.2
+
