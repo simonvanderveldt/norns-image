@@ -1,0 +1,26 @@
+version: 2.1
+
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          key: buildroot-downloads
+      - restore_cache:
+          key: buildroot-ccache
+      - run: ./build.sh
+      - save_cache:
+          key: buildroot-downloads-{{ epoch }}
+          paths:
+            - ~/.cache/buildroot-downloads
+      - save_cache:
+          key: buildroot-ccache-{{ epoch }}
+          paths:
+            - ~/.cache/buildroot-ccache
+      - store_artifacts:
+          path: ./output/images/norns.img
+          destination: norns.img
+      - store_artifacts:
+          path: ./output/graphs
+          destination: graphs
