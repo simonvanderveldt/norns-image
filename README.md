@@ -1,22 +1,37 @@
-# Norns image
-Built using [Buildroot](https://buildroot.org/).
+# Norns image [![CircleCI](https://circleci.com/gh/simonvanderveldt/norns-image.svg?style=svg)](https://circleci.com/gh/simonvanderveldt/norns-image)
 
-Currently needs this patched buildroot fork/branch to work https://github.com/simonvanderveldt/buildroot/tree/2018.11.3-rpi-overlays.
+## Dependencies
+- Docker
 
 ## How to use
-```
-# Clone or download this repo
-# Download and extract buildroot
-# Change directory to the extracted buildroot directory
-export BR2_EXTERNAL=<path-to-this-repo>
-make norns_defconfig
-make
-dd if=output/images/norns.img of=/dev/<rpi3 drive> bs=4MiB
-```
+### Non-interactive building
+Simply run `./build.sh`. The resulting image can be found in `./output/images/norns.img`
 
-Alternatively use the [`simonvanderveldt/buildroot:2018.11.3`](https://cloud.docker.com/repository/docker/simonvanderveldt/buildroot) docker image which has the same patches applied:
-```
-# Clone or download this repository
-cd norns-image
-docker run -ti -e BR2_EXTERNAL=/mycustombuildroot -v `pwd`:/mycustombuildroot simonvanderveldt/buildroot:2018.11.3
+This will start a container which will automatically build the image.
+Note that two caching directories will be created:
+- `~/.cache/buildroot-downloads`: Buildroot's package download cache
+- `~/.cache/buildroot-ccache`: Buildroot's compiler cache
+
+### Interactive building
+```bash
+# Make sure the image is up to date
+$ docker pull simonvanderveldt/buildroot:2018.11.3
+
+# Start the container
+$ docker run --rm -ti \
+  -v "${HOME}/.cache/buildroot-downloads":/buildroot/dl \
+  -v "${HOME}/.cache/buildroot-ccache":/root/.buildroot-ccache \
+  -v "${PWD}":/mycustombuildroot \
+  -v "${PWD}/output/images":/buildroot/output/images \
+  -v "${PWD}/output/graphs":/buildroot/output/graphs \
+  -e BR2_EXTERNAL=/mycustombuildroot \
+  -e BR2_GRAPH_OUT=png \
+  simonvanderveldt/buildroot:2018.11.3
+
+# You're now inside a shell in the buildroot container
+# You can run any normal buildroot command here
+root@97b9c44b0e3d:/buildroot# make norns_defconfig
+# ...
+root@97b9c44b0e3d:/buildroot# make menuconfig
+# etc
 ```
