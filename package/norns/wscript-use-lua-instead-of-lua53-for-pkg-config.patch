@@ -1,0 +1,39 @@
+From 4206920888849dcacfb7340d11c203c655cb3f07 Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Sat, 23 Feb 2019 18:12:02 +0100
+Subject: [PATCH] wscript: Use lua instead of lua53 for pkg-config
+
+---
+ matron/wscript | 2 +-
+ wscript        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/matron/wscript b/matron/wscript
+index 8697164..0695306 100644
+--- a/matron/wscript
++++ b/matron/wscript
+@@ -40,7 +40,7 @@ def build(bld):
+             'LIBEVDEV',
+             'CAIRO',
+             'CAIRO-FT',
+-            'LUA53',
++            'LUA',
+             'LIBLO',
+             'LIBMONOME',
+             'SNDFILE',
+diff --git a/wscript b/wscript
+index 8805c18..f130216 100644
+--- a/wscript
++++ b/wscript
+@@ -32,7 +32,7 @@ def configure(conf):
+     conf.check_cfg(package='liblo', args=['--cflags', '--libs'])
+     conf.check_cfg(package='cairo', args=['--cflags', '--libs'])
+     conf.check_cfg(package='cairo-ft', args=['--cflags', '--libs'])
+-    conf.check_cfg(package='lua53', args=['--cflags', '--libs'])
++    conf.check_cfg(package='lua', args=['--cflags', '--libs'])
+     conf.check_cfg(package='nanomsg', args=['--cflags', '--libs'])
+     conf.check_cfg(package='avahi-compat-libdns_sd', args=['--cflags', '--libs'])
+     conf.check_cfg(package='sndfile', args=['--cflags', '--libs'])	
+-- 
+2.19.2
+

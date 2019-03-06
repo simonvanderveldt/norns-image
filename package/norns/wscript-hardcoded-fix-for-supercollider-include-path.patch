@@ -1,0 +1,34 @@
+From a2107fe30c01a5f7bcdf1518a253b9c77ccdf67a Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Thu, 28 Feb 2019 19:10:53 +0100
+Subject: [PATCH] wscript: Hardcoded fix for supercollider include paths
+
+Ugly, but haven't figured out a better way so far :(
+---
+ wscript | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/wscript b/wscript
+index f130216..7b16f9f 100644
+--- a/wscript
++++ b/wscript
+@@ -48,13 +48,9 @@ def configure(conf):
+         define_name='HAVE_SUPERCOLLIDER',
+         mandatory=True,
+         includes=[
+-            '{}/include/SuperCollider/plugin_interface'.format(conf.env.PREFIX),
+-            '{}/include/SuperCollider/common'.format(conf.env.PREFIX),
+-            '/usr/include/SuperCollider/plugin_interface',
+-            '/usr/include/SuperCollider/common',
+-            '/usr/local/include/SuperCollider/plugin_interface',
+-            '/usr/local/include/SuperCollider/common',
+-            '/sc/external_libraries/nova-simd'
++            "/buildroot/output/staging/usr/include/SuperCollider/plugin_interface",
++            "/buildroot/output/staging/usr/include/SuperCollider/common/",
++            "sc/external_libraries/nova-simd"
+ 	],
+         header_name='SC_PlugIn.h',
+         uselib_store='SUPERCOLLIDER')
+-- 
+2.19.2
+

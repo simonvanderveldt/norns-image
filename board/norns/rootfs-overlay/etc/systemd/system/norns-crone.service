@@ -1,0 +1,13 @@
+[Unit]
+Description=Crone
+Requires=jack2.service
+After=jack2.service
+
+[Service]
+Type=simple
+# User=we
+# Group=we
+User=root
+LimitRTPRIO=95
+LimitMEMLOCK=infinity
+ExecStart=/bin/ws-wrapper ws://*:5556 /bin/sclang -i maiden

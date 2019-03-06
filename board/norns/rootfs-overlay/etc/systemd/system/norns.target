@@ -1,0 +1,10 @@
+[Unit]
+Description=norns
+
+Requires=jack2.service
+Requires=norns-crone.service
+Requires=norns-matron.service
+# Requires=norns-maiden.service
+
+[Install]
+WantedBy=multi-user.target

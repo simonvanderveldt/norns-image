@@ -1,0 +1,22 @@
+config BR2_PACKAGE_NORNS
+	bool "norns"
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_AVAHI
+	select BR2_PACKAGE_AVAHI_DAEMON
+	select BR2_PACKAGE_AVAHI_LIBDNSSD_COMPATIBILITY
+	select BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_LIBEVDEV
+	select BR2_PACKAGE_LIBLO
+	select BR2_PACKAGE_LIBMONOME
+	select BR2_PACKAGE_LUA
+	select BR2_PACKAGE_NANOMSG
+	select BR2_PACKAGE_SC3_PLUGINS
+	select BR2_PACKAGE_SUPERCOLLIDER
+
+	help
+	  norns is many sound instruments
+
+	  https://github.com/monome/norns
+
+comment "norns needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

@@ -1,0 +1,9 @@
+config BR2_PACKAGE_DUST
+	bool "dust"
+	select BR2_PACKAGE_SC3_PLUGINS
+	select BR2_PACKAGE_SUPERCOLLIDER
+
+	help
+	  norns incantations
+
+	  https://github.com/monome/dust
