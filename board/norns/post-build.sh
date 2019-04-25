@@ -12,6 +12,10 @@ fi
 cp -f ${BOARD_DIR}/cmdline.txt $BINARIES_DIR/
 cp -f ${BOARD_DIR}/config.txt $BINARIES_DIR/
 
+# Remove /etc/resolv.conf from skeleton
+# When there's an existing file NetworkManager won't update it
+rm -f ${TARGET_DIR}/etc/resolv.conf
+
 # Enable norns.target
 ln -fs ../norns.target \
 		${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/norns.target
