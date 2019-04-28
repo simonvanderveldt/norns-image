@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBMONOME_VERSION = v1.4.1
+LIBMONOME_VERSION = v1.4.2
 LIBMONOME_SITE = $(call github,monome,libmonome,$(LIBMONOME_VERSION))
 LIBMONOME_INSTALL_STAGING = YES
 LIBMONOME_LICENSE = ISC
