@@ -7,4 +7,4 @@ Type=simple
 User=root
 LimitRTPRIO=95
 LimitMEMLOCK=infinity
-ExecStart=/bin/crone
+ExecStart=/bin/ws-wrapper ws://*:5556 /usr/bin/sclang -i maiden
