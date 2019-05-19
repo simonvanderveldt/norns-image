@@ -1,10 +1,6 @@
 [Unit]
-Description=Matron
 
 [Service]
 Type=simple
-# User=we
-# Group=we
 User=root
 ExecStart=/bin/ws-wrapper ws://*:5555 /bin/matron
-KillMode=process

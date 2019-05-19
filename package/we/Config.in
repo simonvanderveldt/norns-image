@@ -1,0 +1,8 @@
+config BR2_PACKAGE_WE
+	bool "we"
+	select BR2_PACKAGE_DUST
+
+	help
+	  norns collected and collaborative projects
+
+	  https://github.com/monome/we
