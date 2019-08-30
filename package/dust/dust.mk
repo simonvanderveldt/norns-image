@@ -4,17 +4,17 @@
 #
 ################################################################################
 
-DUST_VERSION = c10c62c24e88d1dc10c5eb3ed77f5b9b451fbe6c
-DUST_SITE = $(call github,monome,dust,$(DUST_VERSION))
+DUST_VERSION = 2.0.1
+DUST_SOURCE = norns-$(DUST_VERSION)-dust.tgz
+DUST_SITE = https://monome.nyc3.digitaloceanspaces.com
 DUST_LICENSE = GPL-3.0
-DUST_LICENSE_FILES = LICENSE
 DUST_DEPENDENCIES = norns
 
 define DUST_INSTALL_TARGET_CMDS
   mkdir -p $(TARGET_DIR)/root/dust
-  cp -a $(@D)/audio $(TARGET_DIR)/root/dust/audio
-  mkdir -p $(TARGET_DIR)/root/dust/data
-  mkdir -p $(TARGET_DIR)/root/dust/code
+  cp -a $(@D)/* $(TARGET_DIR)/root/dust
+  mkdir -p $(TARGET_DIR)/root/.config/SuperCollider
+  cp -a $(DUST_PKGDIR)/sclang_conf.yaml $(TARGET_DIR)/root/.config/SuperCollider/sclang_conf.yaml
 endef
 
 $(eval $(generic-package))
