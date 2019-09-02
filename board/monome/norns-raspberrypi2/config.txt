@@ -18,3 +18,15 @@ disable_overscan=1
 gpu_mem_256=100
 gpu_mem_512=100
 gpu_mem_1024=100
+
+# Display
+# Connected using SPI
+dtparam=spi=on
+dtoverlay=ssd1322-spi
+
+# Soundcard
+# Connected using I2S
+# CS4270 codec used by soundcard connected using I2C
+dtparam=i2s=on
+dtparam=i2c=on
+dtoverlay=monome-snd

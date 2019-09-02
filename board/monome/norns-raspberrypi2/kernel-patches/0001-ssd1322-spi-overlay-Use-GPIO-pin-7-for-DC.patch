@@ -1,0 +1,43 @@
+From a501bfc714aabbff654856a14b90e0e549244baa Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Mon, 2 Sep 2019 21:58:52 +0200
+Subject: [PATCH] ssd1322-spi-overlay: Use GPIO pin 7 for DC
+
+---
+ arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts b/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts
+index d94b6d04f00f..23287dd1ac25 100644
+--- a/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts
++++ b/arch/arm/boot/dts/overlays/ssd1322-spi-overlay.dts
+@@ -2,7 +2,7 @@
+ Device Tree overlay for SSD1322 SPI controller.
+ 
+ Default pins:
+-DC#		 = GPIO5
++DC#		 = GPIO7
+ RESET# = GPIO6
+ 
+ */
+@@ -38,7 +38,7 @@ RESET# = GPIO6
+     target = <&gpio>;
+     __overlay__ {
+       ssd1322_pins: ssd1322_pins {
+-        brcm,pins = <6 5>;
++        brcm,pins = <6 7>;
+         brcm,function = <1 1>;
+       };
+     };
+@@ -63,7 +63,7 @@ RESET# = GPIO6
+         fps = <20>;
+ 
+         reset-gpios = <&gpio 6 0>;
+-        dc-gpios = <&gpio 5 1>;
++        dc-gpios = <&gpio 7 1>;
+         debug = <3>;
+       };
+     };
+-- 
+2.21.0
+
