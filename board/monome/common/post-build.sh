@@ -9,8 +9,12 @@ if [ -f ${BINARIES_DIR}/dt-blob.dtb ]; then
 fi
 
 # Use our custom cmdline.txt and config.txt
-cp -f ${BOARD_DIR}/cmdline.txt $BINARIES_DIR/
-cp -f ${BOARD_DIR}/config.txt $BINARIES_DIR/
+if [ -f ${BOARD_DIR}/cmdline.txt ]; then
+  cp -f ${BOARD_DIR}/cmdline.txt $BINARIES_DIR/
+fi
+if [ -f ${BOARD_DIR}/config.txt ]; then
+  cp -f ${BOARD_DIR}/config.txt $BINARIES_DIR/
+fi
 
 # Remove /etc/resolv.conf from skeleton
 # When there's an existing file NetworkManager won't update it
