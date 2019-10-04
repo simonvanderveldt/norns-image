@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -xe
 
+# Use the first argument as config name
+# Default to "norns_defconfig" if no argument given
+CONFIG=${1:-norns_defconfig}
+
 # Make sure the Docker image is up to date
 docker pull simonvanderveldt/buildroot:2018.11.3
 
@@ -14,11 +18,11 @@ docker run --rm -ti \
   -e BR2_EXTERNAL=/mycustombuildroot \
   -e BR2_GRAPH_OUT=png \
   simonvanderveldt/buildroot:2018.11.3 \
-  sh -c 'make norns_defconfig \
+  sh -c "make ${CONFIG} \
     && make \
-    && BR2_GRAPH_DEPS_OPTS="--exclude host" make graph-depends \
+    && BR2_GRAPH_DEPS_OPTS='--exclude host' make graph-depends \
     && mv output/graphs/graph-depends.dot output/graphs/graph-depends-target.dot \
     && mv output/graphs/graph-depends.png output/graphs/graph-depends-target.png \
     && make graph-depends \
     && make graph-build \
-    && make graph-size'
+    && make graph-size"
