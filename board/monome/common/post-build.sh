@@ -23,3 +23,9 @@ rm -f ${TARGET_DIR}/etc/resolv.conf
 # Enable norns.target
 ln -fs ../norns.target \
 		${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/norns.target
+
+# Enable maiden socket activation
+# This is the equivalent of "systemctl enable norns-maiden.socket"
+mkdir -p ${TARGET_DIR}/etc/systemd/system/sockets.target.wants
+ln -fs ../norns-maiden.socket \
+    ${TARGET_DIR}/etc/systemd/system/sockets.target.wants/norns-maiden.socket
