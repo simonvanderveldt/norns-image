@@ -1,16 +1,16 @@
-From da328593c1aa599429f6de29f9b7f01143dbde5d Mon Sep 17 00:00:00 2001
+From 81a87ef3131f8c4bf5c2df3b965d319bd71a0da9 Mon Sep 17 00:00:00 2001
 From: Simon van der Veldt <simon.vanderveldt@gmail.com>
-Date: Fri, 31 May 2019 23:24:19 +0200
-Subject: [PATCH] wscript: Install resources in system location
+Date: Sun, 3 Nov 2019 19:28:09 +0100
+Subject: [PATCH] Install resources in system location
 
 ---
  lua/core/config.lua          | 5 +++--
- matron/src/hardware/screen.c | 9 ++++-----
- wscript                      | 6 +++++-
- 3 files changed, 12 insertions(+), 8 deletions(-)
+ matron/src/hardware/screen.c | 3 +--
+ wscript                      | 4 ++++
+ 3 files changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/lua/core/config.lua b/lua/core/config.lua
-index fc6b9d3..86458ae 100644
+index fc6b9d3d..86458ae0 100644
 --- a/lua/core/config.lua
 +++ b/lua/core/config.lua
 @@ -3,13 +3,14 @@
@@ -31,29 +31,10 @@ index fc6b9d3..86458ae 100644
  
  package.path = sys..core..params..lib..softcut..dust..package.path
 diff --git a/matron/src/hardware/screen.c b/matron/src/hardware/screen.c
-index 7bf3ac4..b9d796a 100644
+index 1cf064d0..7fa5763c 100644
 --- a/matron/src/hardware/screen.c
 +++ b/matron/src/hardware/screen.c
-@@ -139,10 +139,10 @@ handle_allocate_error:
- void screen_display_png(const char *filename, double x, double y){
- 	int img_w, img_h;
- 	//fprintf(stderr, "loading: %s\n", filename);
--	
-+
- 	image = cairo_image_surface_create_from_png (filename);
- 	if(image == NULL) { return; }
--	
-+
- 	img_w = cairo_image_surface_get_width (image);
- 	img_h = cairo_image_surface_get_height (image);
- 
-@@ -246,13 +246,12 @@ void screen_init(void) {
-     for (int i=0; i<NUM_FONTS; ++i) {
-       fprintf(stderr, "  %d: %s\n", i, font_path[i]);
-     }
--    
-+
-     char filename[256];
+@@ -254,8 +254,7 @@ void screen_init(void) {
  
      for(int i = 0; i < NUM_FONTS; i++) {
          // FIXME should be path relative to norns/
@@ -64,19 +45,10 @@ index 7bf3ac4..b9d796a 100644
          status = FT_New_Face(value, filename, 0, &face[i]);
          if(status != 0) {
 diff --git a/wscript b/wscript
-index 6b928f5..81e466b 100644
+index 0c2a3aea..98188f70 100644
 --- a/wscript
 +++ b/wscript
-@@ -36,7 +36,7 @@ def configure(conf):
-     conf.check_cfg(package='lua53', args=['--cflags', '--libs'])
-     conf.check_cfg(package='nanomsg', args=['--cflags', '--libs'])
-     conf.check_cfg(package='avahi-compat-libdns_sd', args=['--cflags', '--libs'])
--    conf.check_cfg(package='sndfile', args=['--cflags', '--libs'])	
-+    conf.check_cfg(package='sndfile', args=['--cflags', '--libs'])
- 
-     conf.check_cc(msg='Checking for libmonome',
-         define_name='HAVE_LIBMONOME',
-@@ -66,3 +66,7 @@ def build(bld):
+@@ -69,3 +69,7 @@ def build(bld):
      bld.recurse('ws-wrapper')
      bld.recurse('sc')
      bld.recurse('crone')
@@ -85,5 +57,5 @@ index 6b928f5..81e466b 100644
 +    bld.install_files('${PREFIX}/share/norns', bld.path.ant_glob('resources/**/*'), relative_trick=True)
 +    bld.install_files('${PREFIX}/share/norns', bld.path.ant_glob('lua/**/*'), relative_trick=True)
 -- 
-2.21.0
+2.23.0
 
