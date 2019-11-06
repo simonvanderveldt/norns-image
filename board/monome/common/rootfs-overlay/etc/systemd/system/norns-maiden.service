@@ -1,0 +1,7 @@
+[Unit]
+Requires=norns-maiden.socket
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/maiden server --fd 3 --app /usr/share/maiden --data /root/dust --doc /root/norns/doc
