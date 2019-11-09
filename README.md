@@ -4,11 +4,17 @@
 - Docker
 
 ## How to use
-### Non-interactive building
-Simply run `./build.sh`. The resulting image can be found in `./output/images/norns.img`
 
-This will start a container which will automatically build the image.
-Note that two caching directories will be created:
+### Building the image
+The built images are hardware specific. The following hardware is supported:
+
+| Device                                                                     | How to build                              | Image location                         |
+|----------------------------------------------------------------------------|-------------------------------------------|----------------------------------------|
+| Norns                                                                      | `./build.sh`                              | `output/images/norns.img`              |
+| Raspberry Pi 3 with [norns-shield](https://github.com/monome/norns-shield) | `./build.sh norns_raspberrypi3_defconfig` | `output/images/norns-raspberrypi3.img` |
+
+The build script will start a container which will automatically build the image.
+Note that two caching directories will be created in your user's home directory:
 - `~/.cache/buildroot-downloads`: Buildroot's package download cache
 - `~/.cache/buildroot-ccache`: Buildroot's compiler cache
 
