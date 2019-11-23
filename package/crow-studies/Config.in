@@ -1,0 +1,8 @@
+config BR2_PACKAGE_CROW_STUDIES
+	bool "crow-studies"
+	select BR2_PACKAGE_DUST
+
+	help
+	  crow studies
+
+	  https://monome.org/docs/crow/norns

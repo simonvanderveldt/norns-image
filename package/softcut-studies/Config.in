@@ -1,0 +1,8 @@
+config BR2_PACKAGE_SOFTCUT_STUDIES
+	bool "softcut-studies"
+	select BR2_PACKAGE_DUST
+
+	help
+	  softcut studies
+
+	  https://github.com/monome/softcut-studies
