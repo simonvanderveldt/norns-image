@@ -10,7 +10,8 @@ SOFTCUT_STUDIES_DEPENDENCIES = dust
 
 define SOFTCUT_STUDIES_INSTALL_TARGET_CMDS
   rm -rf $(TARGET_DIR)/root/dust/code/softcut-studies
-  cp -a $(SOFTCUT_STUDIES_DL_DIR) $(TARGET_DIR)/root/dust/code/softcut-studies
+  mkdir $(TARGET_DIR)/root/dust/code/softcut-studies
+  cp -a $(@D)/* $(TARGET_DIR)/root/dust/code/softcut-studies/
 endef
 
 $(eval $(generic-package))
