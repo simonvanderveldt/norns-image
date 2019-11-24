@@ -10,7 +10,8 @@ CROW_STUDIES_DEPENDENCIES = dust
 
 define CROW_STUDIES_INSTALL_TARGET_CMDS
   rm -rf $(TARGET_DIR)/root/dust/code/crow-studies
-  cp -a $(CROW_STUDIES_DL_DIR) $(TARGET_DIR)/root/dust/code/crow-studies
+  mkdir $(TARGET_DIR)/root/dust/code/crow-studies
+  cp -a $(@D)/* $(TARGET_DIR)/root/dust/code/crow-studies/
 endef
 
 $(eval $(generic-package))
