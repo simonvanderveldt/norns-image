@@ -1,0 +1,121 @@
+From e01533ff62e48071d942c9259a8d5363eac2f645 Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Sun, 1 Dec 2019 00:12:21 +0100
+Subject: [PATCH] Remove sudo from shell invocations
+
+---
+ lua/core/menu/reset.lua  |  6 +++---
+ lua/core/menu/sleep.lua  |  2 +-
+ lua/core/menu/update.lua | 12 ++++++------
+ test.lua                 | 33 +++++++++++++++++++++++++++++++++
+ 4 files changed, 43 insertions(+), 10 deletions(-)
+ create mode 100644 test.lua
+
+diff --git a/lua/core/menu/reset.lua b/lua/core/menu/reset.lua
+index 41c324cc..977f611a 100644
+--- a/lua/core/menu/reset.lua
++++ b/lua/core/menu/reset.lua
+@@ -13,9 +13,9 @@ elseif n==3 and z==1 then
+     norns.state.clean_shutdown = true
+     norns.state.save()
+     if pcall(cleanup) == false then print("cleanup failed") end
+-    os.execute("sudo systemctl restart norns-jack.service")
+-    os.execute("sudo systemctl restart norns-sclang.service")
+-    os.execute("sudo systemctl restart norns-matron.service")
++    os.execute("systemctl restart norns-jack.service")
++    os.execute("systemctl restart norns-sclang.service")
++    os.execute("systemctl restart norns-matron.service")
+   end
+ end
+ 
+diff --git a/lua/core/menu/sleep.lua b/lua/core/menu/sleep.lua
+index 8178e0a7..e39b7522 100644
+--- a/lua/core/menu/sleep.lua
++++ b/lua/core/menu/sleep.lua
+@@ -15,7 +15,7 @@ m.key = function(n,z)
+     --if m.tape.rec.sel == TAPE_REC_STOP then audio.tape_record_stop() end
+     audio.level_dac(0)
+     audio.headphone_gain(0)
+-    os.execute("sleep 0.5; sudo shutdown now")
++    os.execute("sleep 0.5; shutdown now")
+   end
+ end
+ 
+diff --git a/lua/core/menu/update.lua b/lua/core/menu/update.lua
+index 171913ba..4cd92aff 100644
+--- a/lua/core/menu/update.lua
++++ b/lua/core/menu/update.lua
+@@ -38,9 +38,9 @@ local function get_update()
+   pcall(cleanup) -- shut down script
+   norns.script.clear()
+   print("shutting down audio...")
+-  os.execute("sudo systemctl stop norns-jack.service") -- disable audio
++  os.execute("systemctl stop norns-jack.service") -- disable audio
+   print("clearing old updates...")
+-  os.execute("sudo rm -rf /home/we/update/*") -- clear old updates
++  os.execute("rm -rf /home/we/update/*") -- clear old updates
+   m.message = "downloading..."
+   _menu.redraw()
+   print("starting download...")
+@@ -104,15 +104,15 @@ m.key = function(n,z)
+       m.stage="update"
+       _menu.redraw()
+     elseif n==3 and z==1 then
+-      os.execute("sudo systemctl restart norns-jack.service")
+-      os.execute("sudo systemctl restart norns-sclang.service")
+-      os.execute("sudo systemctl restart norns-matron.service")
++      os.execute("systemctl restart norns-jack.service")
++      os.execute("systemctl restart norns-sclang.service")
++      os.execute("systemctl restart norns-matron.service")
+     end
+   elseif m.stage=="done" and z==1 then
+     print("shutting down.")
+     m.message = "shutting down."
+     _menu.redraw()
+-    os.execute("sleep 0.5; sudo shutdown now")
++    os.execute("sleep 0.5; shutdown now")
+   end
+ end
+ 
+diff --git a/test.lua b/test.lua
+new file mode 100644
+index 00000000..ebcfaea8
+--- /dev/null
++++ b/test.lua
+@@ -0,0 +1,33 @@
++function tprint (t, s)
++    for k, v in pairs(t) do
++        local kfmt = '["' .. tostring(k) ..'"]'
++        if type(k) ~= 'string' then
++            kfmt = '[' .. k .. ']'
++        end
++        local vfmt = '"'.. tostring(v) ..'"'
++        if type(v) == 'table' then
++            tprint(v, (s or '')..kfmt)
++        else
++            if type(v) ~= 'string' then
++                vfmt = tostring(v)
++            end
++            print(type(t)..(s or '')..kfmt..' = '..vfmt)
++        end
++    end
++end
++
++results = [[./lib/Engine_KarplusRings.sc
++./lib/Engine_TestSine.sc
++./lib/Engine_PolySub.sc
++./lib/Engine_KarplusRings.sc
++./lib/Engine_SimplePassThru.sc]]
++
++local files = {}
++for file in string.gmatch(results, "[^\n]+") do
++  for str in string.gmatch(file, "[^a]+") do
++          print("simon")
++  end
++  table.insert(files, file)
++end
++
++tprint(files)
+-- 
+2.23.0
+

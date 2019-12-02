@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-NORNS_VERSION = v2.2.2
+NORNS_VERSION = v2.2.4
 NORNS_SITE = $(call github,monome,norns,$(NORNS_VERSION))
 NORNS_LICENSE = ISC
 NORNS_LICENSE_FILES = LICENSE.txt
