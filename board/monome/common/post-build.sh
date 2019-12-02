@@ -3,6 +3,13 @@ set -e
 
 BOARD_DIR="$(dirname $0)"
 
+# Fix for buildroot adding an unnecessary default (console-|serial-)getty@.service
+# Systemd will automatically pick up the kernel's console=<console> parameter and create
+# serial-console@<console>.service
+# Having an additional one makes no sense and depending on the value of
+# BR2_TARGET_GENERIC_GETTY_PORT breaks things
+rm -rf ${TARGET_DIR}/etc/systemd/system/getty.target.wants/
+
 # Rename dt-blob.dtb to dt-blob.bin
 if [ -f ${BINARIES_DIR}/dt-blob.dtb ]; then
   mv "${BINARIES_DIR}/dt-blob.dtb" "${BINARIES_DIR}/dt-blob.bin"
