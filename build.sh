@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -xe
 
+BUILDROOT_VERSION="2018.11.4"
+
 # Use the first argument as config name
 # Default to "norns_defconfig" if no argument given
 CONFIG=${1:-norns_defconfig}
 
 # Make sure the Docker image is up to date
-docker pull simonvanderveldt/buildroot:2018.11.3
+docker pull "simonvanderveldt/buildroot:${BUILDROOT_VERSION}"
 
 # Run the build
 docker run --rm -ti \
@@ -17,7 +19,7 @@ docker run --rm -ti \
   -v "${PWD}/output/graphs":/buildroot/output/graphs \
   -e BR2_EXTERNAL=/mycustombuildroot \
   -e BR2_GRAPH_OUT=png \
-  simonvanderveldt/buildroot:2018.11.3 \
+  "simonvanderveldt/buildroot:${BUILDROOT_VERSION}" \
   sh -c "make ${CONFIG} \
     && make \
     && BR2_GRAPH_DEPS_OPTS='--exclude host' make graph-depends \
