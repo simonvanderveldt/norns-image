@@ -34,6 +34,6 @@ SUPERCOLLIDER_CONF_OPTS = \
   -DSC_QT=no \
   -DSC_VIM=no \
   -DNOVA_SIMD=yes
-SUPERCOLLIDER_DEPENDENCIES = avahi fftw jack2 libsndfile
+SUPERCOLLIDER_DEPENDENCIES = avahi fftw-single jack2 libsndfile
 
 $(eval $(cmake-package))

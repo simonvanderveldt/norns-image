@@ -2,7 +2,7 @@ config BR2_PACKAGE_SC3_PLUGINS
         bool "sc3_plugins"
         select BR2_PACKAGE_SUPERCOLLIDER
         select BR2_PACKAGE_FFTW
-        select BR2_PACKAGE_FFTW_PRECISION_SINGLE
+        select BR2_PACKAGE_FFTW_SINGLE
         help
           A community collection of unit generator plugins for
           SuperCollider. Extends the functionality of SuperCollider

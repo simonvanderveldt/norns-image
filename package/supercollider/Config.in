@@ -5,7 +5,7 @@ config BR2_PACKAGE_SUPERCOLLIDER
         select BR2_PACKAGE_JACK2
         select BR2_PACKAGE_READLINE
         select BR2_PACKAGE_FFTW
-        select BR2_PACKAGE_FFTW_PRECISION_SINGLE
+        select BR2_PACKAGE_FFTW_SINGLE
         select BR2_PACKAGE_LIBSNDFILE
         help
           SuperCollider is a platform for audio synthesis and

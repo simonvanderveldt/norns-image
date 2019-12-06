@@ -15,6 +15,6 @@ SC3_PLUGINS_CONF_OPTS = \
   -DNOVA_SIMD=ON \
   -DNATIVE=OFF \
   -DSUPERNOVA=ON
-SC3_PLUGINS_DEPENDENCIES = supercollider fftw
+SC3_PLUGINS_DEPENDENCIES = supercollider fftw-single
 
 $(eval $(cmake-package))
