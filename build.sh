@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -xe
 
-BUILDROOT_VERSION="2019.05.3"
+BUILDROOT_VERSION="2019.08.3"
 
 # Use the first argument as config name
 # Default to "norns_defconfig" if no argument given
