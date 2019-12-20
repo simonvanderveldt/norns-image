@@ -21,7 +21,7 @@ Note that two caching directories will be created in your user's home directory:
 ### Interactive building
 ```bash
 # Make sure the image is up to date
-$ docker pull simonvanderveldt/buildroot:2019.05.3
+$ docker pull simonvanderveldt/buildroot:2019.08.3
 
 # Start the container
 $ docker run --rm -ti \
@@ -32,7 +32,7 @@ $ docker run --rm -ti \
   -v "${PWD}/output/graphs":/buildroot/output/graphs \
   -e BR2_EXTERNAL=/mycustombuildroot \
   -e BR2_GRAPH_OUT=png \
-  simonvanderveldt/buildroot:2019.05.3
+  simonvanderveldt/buildroot:2019.08.3
 
 # You're now inside a shell in the buildroot container
 # You can run any normal buildroot command here
